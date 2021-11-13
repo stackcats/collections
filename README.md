@@ -1,6 +1,7 @@
 # Collections
 
 
+![Unit Test](https://github.com/stackcats/collections/actions/workflows/elixir.yml/badge.svg)
 
 ## Installation
 
