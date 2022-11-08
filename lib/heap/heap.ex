@@ -2,7 +2,7 @@ defmodule Collections.Heap do
   defstruct data: nil, size: 0, comparator: nil
 
   @moduledoc """
-  Leftist heap implemention in Elixir
+  Leftist heap implementation in Elixir
 
   See also: [Leftist Tree](https://en.wikipedia.org/wiki/Leftist_tree)
 
@@ -39,8 +39,8 @@ defmodule Collections.Heap do
 
       iex> 1..10
       ...>   |> Enum.shuffle()
-      ...>   |> Enum.into(Collections.Heap.min())
-      ...>   |> Collections.Heap.peek()
+      ...>   |> Enum.into(Heap.min())
+      ...>   |> Heap.peek()
       1
   """
   @spec min() :: t
@@ -55,8 +55,8 @@ defmodule Collections.Heap do
 
       iex> 1..10
       ...>   |> Enum.shuffle()
-      ...>   |> Enum.into(Collections.Heap.max())
-      ...>   |> Collections.Heap.peek()
+      ...>   |> Enum.into(Heap.max())
+      ...>   |> Heap.peek()
       10
   """
   @spec max() :: t
@@ -77,7 +77,7 @@ defmodule Collections.Heap do
 
         iex> 1..10
         ...>   |> Enum.shuffle()
-        ...>   |> Enum.into(Collections.Heap.new(&(&1 > &2)))
+        ...>   |> Enum.into(Heap.new(&(&1 > &2)))
         ...>   |> Enum.to_list()
         [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
 
@@ -91,10 +91,10 @@ defmodule Collections.Heap do
 
   ## Examples
 
-      iex> Collections.Heap.new() |> Collections.Heap.empty?()
+      iex> Heap.new() |> Heap.empty?()
       true
       
-      iex> Collections.Heap.new() |> Collections.Heap.push(10) |> Collections.Heap.empty?()
+      iex> Heap.new() |> Heap.push(10) |> Heap.empty?()
       false
   """
   @spec empty?(t) :: boolean
@@ -106,8 +106,8 @@ defmodule Collections.Heap do
   ## Examples
 
       iex> 1..10
-      ...>   |> Enum.into(Collections.Heap.new())
-      ...>   |> Collections.Heap.size()
+      ...>   |> Enum.into(Heap.new())
+      ...>   |> Heap.size()
       10
   """
   @spec size(t) :: non_neg_integer()
@@ -118,9 +118,9 @@ defmodule Collections.Heap do
 
   ## Examples
 
-      iex> Collections.Heap.new()
-      ...>   |> Collections.Heap.push(10)
-      ...>   |> Collections.Heap.peek()
+      iex> Heap.new()
+      ...>   |> Heap.push(10)
+      ...>   |> Heap.peek()
       10
   """
   @spec push(t, any()) :: t
@@ -137,18 +137,18 @@ defmodule Collections.Heap do
 
   ## Examples
 
-      iex> Collections.Heap.new()
-      ...>   |> Collections.Heap.peek()
+      iex> Heap.new()
+      ...>   |> Heap.peek()
       nil
 
-      iex> Collections.Heap.new()
-      ...>   |> Collections.Heap.peek(10)
+      iex> Heap.new()
+      ...>   |> Heap.peek(10)
       10
 
       iex> 1..10
       ...>   |> Enum.shuffle()
-      ...>   |> Enum.into(Collections.Heap.new())
-      ...>   |> Collections.Heap.peek()
+      ...>   |> Enum.into(Heap.new())
+      ...>   |> Heap.peek()
       1
   """
   @spec peek(t, default) :: any() | default when default: any()
@@ -165,18 +165,18 @@ defmodule Collections.Heap do
 
   ## Examples
 
-      iex> {nil, _} = Collections.Heap.new()
-      ...>   |> Collections.Heap.pop()
+      iex> {nil, _} = Heap.new()
+      ...>   |> Heap.pop()
 
-      iex> {10, _} = Collections.Heap.new()
-      ...>   |> Collections.Heap.pop(10)
+      iex> {10, _} = Heap.new()
+      ...>   |> Heap.pop(10)
 
       iex> {1, rest_heap} = 1..10
       ...>   |> Enum.shuffle()
-      ...>   |> Enum.into(Collections.Heap.new())
-      ...>   |> Collections.Heap.pop()
-      ...> {2, _} = Collections.Heap.pop(rest_heap)
-      ...> Collections.Heap.size(rest_heap)
+      ...>   |> Enum.into(Heap.new())
+      ...>   |> Heap.pop()
+      ...> {2, _} = Heap.pop(rest_heap)
+      ...> Heap.size(rest_heap)
       9
   """
   @spec pop(t, default) :: {any(), updated_heap :: t} | {default, t} when default: any()
@@ -192,10 +192,10 @@ defmodule Collections.Heap do
   ## Examples
 
       iex> heap = 1..10
-      ...>   |> Enum.into(Collections.Heap.new())
-      ...> Collections.Heap.member?(heap, 5)
+      ...>   |> Enum.into(Heap.new())
+      ...> Heap.member?(heap, 5)
       true
-      ...> Collections.Heap.member?(heap, 20)
+      ...> Heap.member?(heap, 20)
       false
   """
   @spec member?(t, any()) :: boolean()

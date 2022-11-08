@@ -1,4 +1,7 @@
 defmodule HeapTest do
-  use ExUnit.Case
-  doctest Collections.Heap
+  use ExUnit.Case, async: true
+
+  alias Collections.Heap
+
+  doctest Collections.Heap, import: true
 end

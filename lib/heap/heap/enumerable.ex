@@ -24,10 +24,10 @@ defimpl Enumerable, for: Collections.Heap do
   ## Examples
 
       iex> heap = 1..10
-      ...>   |> Enum.into(Collections.Heap.new())
-      ...> Collections.Heap.member?(heap, 5)
+      ...>   |> Enum.into(Heap.new())
+      ...> Heap.member?(heap, 5)
       true
-      ...> Collections.Heap.member?(heap, 20)
+      ...> Heap.member?(heap, 20)
       false
   """
   @spec member?(Heap.t(), term) :: {:ok, boolean()}
