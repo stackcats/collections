@@ -87,23 +87,23 @@ defmodule Collections.DisjointSet do
   """
   @spec union(t, any(), any()) :: t
   def union(disjoint_set, x, y) do
-    {rootX, disjoint_set} = find(disjoint_set, x)
-    {rootY, disjoint_set} = find(disjoint_set, y)
+    {root_x, disjoint_set} = find(disjoint_set, x)
+    {root_y, disjoint_set} = find(disjoint_set, y)
 
     cond do
-      rootX == rootY ->
+      root_x == root_y ->
         disjoint_set
 
-      disjoint_set.root[rootX] > disjoint_set.root[rootY] ->
-        %{disjoint_set | root: Map.put(disjoint_set.root, rootY, rootX)}
+      disjoint_set.root[root_x] > disjoint_set.root[root_y] ->
+        %{disjoint_set | root: Map.put(disjoint_set.root, root_y, root_x)}
 
-      disjoint_set.root[rootX] < disjoint_set.root[rootY] ->
-        %{disjoint_set | root: Map.put(disjoint_set.root, rootX, rootY)}
+      disjoint_set.root[root_x] < disjoint_set.root[root_y] ->
+        %{disjoint_set | root: Map.put(disjoint_set.root, root_x, root_y)}
 
       true ->
         %DisjointSet{
-          root: Map.put(disjoint_set.root, rootX, rootY),
-          rank: Map.update!(disjoint_set.rank, rootX, &(&1 + 1))
+          root: Map.put(disjoint_set.root, root_x, root_y),
+          rank: Map.update!(disjoint_set.rank, root_x, &(&1 + 1))
         }
     end
   end
