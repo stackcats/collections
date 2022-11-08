@@ -4,7 +4,7 @@ defmodule Collections.MixProject do
   def project do
     [
       app: :collections,
-      version: "0.1.0",
+      version: "0.2.0",
       elixir: "~> 1.12",
       start_permanent: Mix.env() == :prod,
       source_url: "https://github.com/stackcats/collections",
