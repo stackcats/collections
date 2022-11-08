@@ -10,7 +10,7 @@ The package can be installed by adding `collections` to your list of dependencie
 ```elixir
 def deps do
   [
-    {:collections, "~> 0.1.0"}
+    {:collections, "~> 0.2.0"}
   ]
 end
 ```
