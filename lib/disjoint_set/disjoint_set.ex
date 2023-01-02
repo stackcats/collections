@@ -59,15 +59,15 @@ defmodule Collections.DisjointSet do
 
   @spec find(t, any()) :: {any(), t}
   def find(%DisjointSet{root: root, rank: rank} = disjoint_set, x) do
-    cond do
-      not Map.has_key?(root, x) ->
+    case root[x] do
+      nil ->
         {x, %DisjointSet{root: Map.put(root, x, x), rank: Map.put(rank, x, 1)}}
 
-      x == root[x] ->
+      ^x ->
         {x, disjoint_set}
 
-      true ->
-        {r, disjoint_set} = find(disjoint_set, root[x])
+      x ->
+        {r, disjoint_set} = find(disjoint_set, x)
         {r, %{disjoint_set | root: Map.put(disjoint_set.root, x, r)}}
     end
   end
@@ -82,22 +82,32 @@ defmodule Collections.DisjointSet do
       iex> y = ds |> DisjointSet.find(30) |> elem(0)
       iex> x == y
       true
-      iex> x == 40
+      iex> ds = DisjointSet.union(ds, 40, 50)
+      iex> x = ds |> DisjointSet.find(20) |> elem(0)
+      iex> y = ds |> DisjointSet.find(40) |> elem(0)
+      iex> x == y
       false
+      iex> ds = DisjointSet.union(ds, 30, 50)
+      iex> x = ds |> DisjointSet.find(20) |> elem(0)
+      iex> y = ds |> DisjointSet.find(40) |> elem(0)
+      iex> x == y
+      true
   """
   @spec union(t, any(), any()) :: t
   def union(disjoint_set, x, y) do
     {root_x, disjoint_set} = find(disjoint_set, x)
     {root_y, disjoint_set} = find(disjoint_set, y)
+    rank_x = disjoint_set.rank[root_x]
+    rank_y = disjoint_set.rank[root_y]
 
     cond do
       root_x == root_y ->
         disjoint_set
 
-      disjoint_set.root[root_x] > disjoint_set.root[root_y] ->
+      rank_x > rank_y ->
         %{disjoint_set | root: Map.put(disjoint_set.root, root_y, root_x)}
 
-      disjoint_set.root[root_x] < disjoint_set.root[root_y] ->
+      rank_x < rank_y ->
         %{disjoint_set | root: Map.put(disjoint_set.root, root_x, root_y)}
 
       true ->
